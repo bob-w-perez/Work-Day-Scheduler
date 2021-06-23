@@ -40,7 +40,9 @@ textarea {
 }
 
 .time-block {
-  text-align: center;
+  /* text-align: center; */
+  padding-top: 30px;
+  padding-left: 20px;
   border-radius: 15px;
   width: 80%;
 }

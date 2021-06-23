@@ -8,7 +8,8 @@ var contentBox = $('#content-box');
 
 function init() {
     addTime();
-    renderTimeSlots(9, 19)
+    renderTimeSlots(8, 23);
+    colorTime();
 }
 
 
@@ -38,8 +39,8 @@ function renderTimeSlots(startTime, endTime) {
         timeRow.append(hourBox);
 
         var timeSlot = $('<textarea>');
-        timeSlot.addClass('time-block');
-        // timeSlot.attr('contenteditable', 'true');
+        timeSlot.addClass('time-block'); // add placeholder
+        timeSlot.attr('data-time', i);
         timeSlot.text('TEST');  ///*********************** */
         timeRow.append(timeSlot);
 
@@ -49,7 +50,6 @@ function renderTimeSlots(startTime, endTime) {
         timeRow.append(saveBtn);
 
         contentBox.append(timeRow);
-        console.log(timeRow)
 
     }
 
@@ -57,15 +57,39 @@ function renderTimeSlots(startTime, endTime) {
 
 
 function colorTime() {
+    var textBlocks = $(document).find('textarea');
+    var rightNow = Number(moment().format('k'));
+
+    for (var i = 0; i < textBlocks.length; i++){
+        console.log(rightNow)
+        console.log(textBlocks[i].dataset.time)
+
+        if (textBlocks[i].dataset.time < rightNow){
+            $(textBlocks[i]).addClass('past');
+        } else if (textBlocks[i].dataset.time == rightNow){
+            $(textBlocks[i]).addClass('present');
+        }else {
+            $(textBlocks[i]).addClass('future');
+        }
+
+
+
+        // switch(true){
+        //     case (textBlocks[i].dataset.time < rightNow):
+        //         $(textBlocks[i]).addClass('past');
+        //         break;
+        //     case (textBlocks[i].dataset.time == rightNow):
+        //         $(textBlocks[i]).addClass('present');
+        //         break;
+        //     case (textBlocks[i].dataset.time > rightNow):
+        //         $(textBlocks[i]).addClass('future');
+        // }
+
+    }
 
 
 }
 
-
-function addText() {
-
-
-}
 
 
 function saveEvent() {
