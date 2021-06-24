@@ -47,12 +47,11 @@ function renderTimeSlots(startTime, endTime) {
         var saveBtn = $('<div>');
         saveBtn.addClass('saveBtn');
         saveBtn.text('S'); ///***************************** */
+        saveBtn.attr('data-index', (i-startTime));
         timeRow.append(saveBtn);
 
         contentBox.append(timeRow);
-
     }
-
 }
 
 
@@ -61,41 +60,44 @@ function colorTime() {
     var rightNow = Number(moment().format('k'));
 
     for (var i = 0; i < textBlocks.length; i++){
-        console.log(rightNow)
-        console.log(textBlocks[i].dataset.time)
-
-        if (textBlocks[i].dataset.time < rightNow){
-            $(textBlocks[i]).addClass('past');
-        } else if (textBlocks[i].dataset.time == rightNow){
-            $(textBlocks[i]).addClass('present');
-        }else {
-            $(textBlocks[i]).addClass('future');
+    
+        switch(true){
+            case (textBlocks[i].dataset.time < rightNow):
+                $(textBlocks[i]).addClass('past');
+                break;
+            case (textBlocks[i].dataset.time == rightNow):
+                $(textBlocks[i]).addClass('present');
+                break;
+            case (textBlocks[i].dataset.time > rightNow):
+                $(textBlocks[i]).addClass('future');
         }
+    }
+}
 
 
 
-        // switch(true){
-        //     case (textBlocks[i].dataset.time < rightNow):
-        //         $(textBlocks[i]).addClass('past');
-        //         break;
-        //     case (textBlocks[i].dataset.time == rightNow):
-        //         $(textBlocks[i]).addClass('present');
-        //         break;
-        //     case (textBlocks[i].dataset.time > rightNow):
-        //         $(textBlocks[i]).addClass('future');
-        // }
+function saveEvent(element) {
 
+    var index = element.dataset.index;
+    var targetBlock = $('.time-block')[index];
+    
+    var saveItem = {
+        [index]: $(targetBlock).val()
     }
 
+    var storedSchedule = JSON.parse(localStorage.getItem('schedule'));
+
+    if (storedSchedule !== null) {
+        storedSchedule = Object.assign(storedSchedule, saveItem)
+    } else {
+        storedSchedule = saveItem;
+    }
+    
+
+    localStorage.setItem('schedule', JSON.stringify(storedSchedule));
 
 }
 
-
-
-function saveEvent() {
-
-
-}
 
 
 function loadSavedData() {
@@ -103,5 +105,12 @@ function loadSavedData() {
 
 }
 
+$('#content-box').on('click', function(event){
+    var element = event.target;
+
+    if (element.matches('.saveBtn')) {
+        saveEvent(element);
+    }
+});
 
 init();
