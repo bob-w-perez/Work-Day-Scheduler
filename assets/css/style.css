@@ -2,9 +2,9 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   line-height: 1;
-  background-image: url('../images/texture-background1.jpg');
+  background-image: url("../images/texture-background1.jpg");
   background-size: cover;
-}
+ }
 
 textarea {
   background: transparent;
@@ -12,7 +12,8 @@ textarea {
   resize: none;
   color: #000000;
   border-left: 1px solid black;
-  padding: 10px;
+  padding: 5px;
+  font-size: 25px;
 }
 
 .jumbotron {
@@ -41,6 +42,7 @@ textarea {
 
 #content-box {
   margin-bottom: 100px;
+  width: 100%;
 }
 
 .description {
@@ -48,40 +50,39 @@ textarea {
 }
 
 .time-block {
-  /* text-align: center; */
-  padding-top: 30px;
+  padding-top: 40px;
   padding-left: 20px;
   border-radius: 15px;
-  width: 80%;
+  width: 60%;
 }
 
 .row {
   white-space: pre-wrap;
-  height: 80px;
+  height: 110px;
   border-top: 1px solid white;
 }
 
 .hour {
-  background-color: #ffffff;
   color: #000000;
   border-top: 1px dashed #000000;
-  width: 10%;
+  width: 20%;
   padding-top: 10px;
+  font-size: 20px;
 }
 
 .past {
-  background-color: rgb(178, 178, 178, 0.7);
-  color: white;
+  background-color: rgb(38, 22, 234, 0.5);
+  color: black;
 }
 
 .present {
-  background-color: rgb(255, 105, 97, 0.7);
-  color: white;
+  background-color: rgb(86, 223, 34, 0.7);
+  color: black;
 }
 
 .future {
-  background-color: rgb(119, 221, 119, 0.7);
-  color: white;
+  background-color: rgb(108, 232, 230, 0.5);
+  color: black;
 }
 
 .saveBtn {
@@ -89,9 +90,15 @@ textarea {
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
   background-color: #06aed5;
+  background-image: url('../images/save-icon2.png');
+  background-size: 70% 70%;
+  background-repeat: no-repeat;
+  background-position: center;
   color: white;
-  width: 10%;
+  width: 20%;
+  position: relative;
 }
+
 
 .saveBtn i:hover {
   font-size: 20px;
@@ -105,6 +112,18 @@ textarea {
     margin-left: 10%;
     margin-right: 10%;
     }
+    
+  .time-block {
+    width: 70%;
+  }  
+
+  .hour {
+    width: 15%;
+  }  
+
+  .saveBtn {
+    width: 15%;
+  }  
 }
 
 @media screen and (min-width: 820px) {
@@ -113,6 +132,18 @@ textarea {
     margin-left: 15%;
     margin-right: 15%;
     }
+
+   .time-block {
+    width: 80%;
+  }  
+
+  .hour {
+    width: 10%;
+  }  
+
+  .saveBtn {
+    width: 10%;
+  }  
 }
 
 
