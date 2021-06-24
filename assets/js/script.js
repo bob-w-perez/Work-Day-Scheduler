@@ -22,6 +22,13 @@ function addTime() {
 }
 
 function renderTimeSlots(startTime, endTime) {
+    if (startTime > endTime) {
+        var errorMsg = $('<h3>');
+        errorMsg.addClass('error-msg');
+        errorMsg.text("Whoops! Make sure your 'End Time' is later than your 'Start Time'...");
+        contentBox.append(errorMsg);
+        return;
+    }
 
     for (var i = startTime; i <= endTime; i++ ){
         var timeRow = $('<li>');
@@ -147,20 +154,26 @@ $('#content-box').on('click', function(event){
 $('#set-workday').on('submit',function(event){
     event.preventDefault();
 
-    if ($('#start-ap').is(':checked')) {
+    if ($('#start-ap').is(':checked') && (Number($('#start-time').val()) == 12)) {
+        var startTime = 12;
+    } else if  ($('#start-ap').is(':checked')) {
         var startTime = (Number($('#start-time').val()) + 12);
+    } else if (!$('#start-ap').is(':checked') && (Number($('#start-time').val()) == 12)) {
+        var startTime = 0;  
     } else {
         var startTime = Number($('#start-time').val());
     }
-/// condition for noon and midnight
-    if ($('#end-ap').is(':checked')) {
+
+    if ($('#end-ap').is(':checked') && (Number($('#end-time').val()) == 12)) {
+        var endTime = 12;
+    } else if  ($('#end-ap').is(':checked')) {
         var endTime = (Number($('#end-time').val()) + 12);
+    } else if (!$('#end-ap').is(':checked') && (Number($('#end-time').val()) == 12)) {
+        var endTime = 24;  
     } else {
         var endTime = Number($('#end-time').val());
     }
-    // conditional for start > end
-    console.log(startTime + ' ' + endTime);
-    // also try remove() or empty()
+ 
     contentBox.empty();
 
     renderTimeSlots(startTime, endTime);

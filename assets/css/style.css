@@ -44,6 +44,10 @@ input::-webkit-inner-spin-button {
   text-align: right;
 }
 
+.error-msg {
+  text-align: center;
+}
+
 .jumbotron {
   text-align: center;
   background-color: transparent;
