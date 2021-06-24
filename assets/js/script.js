@@ -8,7 +8,7 @@ var contentBox = $('#content-box');
 
 function init() {
     addTime();
-    renderTimeSlots(8, 23);
+    renderTimeSlots(5, 17);
     colorTime();
 }
 
@@ -41,12 +41,10 @@ function renderTimeSlots(startTime, endTime) {
         var timeSlot = $('<textarea>');
         timeSlot.addClass('time-block'); // add placeholder
         timeSlot.attr('data-time', i);
-        timeSlot.text('TEST');  ///*********************** */
         timeRow.append(timeSlot);
 
         var saveBtn = $('<div>');
         saveBtn.addClass('saveBtn');
-        saveBtn.text('S'); ///***************************** */
         saveBtn.attr('data-index', (i-startTime));
         timeRow.append(saveBtn);
 

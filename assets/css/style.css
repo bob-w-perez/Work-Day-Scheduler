@@ -2,6 +2,8 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   line-height: 1;
+  background-image: url('../images/texture-background1.jpg');
+  background-size: cover;
 }
 
 textarea {
@@ -35,6 +37,10 @@ textarea {
   margin-top: 30px;
 }
 
+#content-box {
+  margin-bottom: 100px;
+}
+
 .description {
   white-space: pre-wrap;
 }
@@ -58,20 +64,21 @@ textarea {
   color: #000000;
   border-top: 1px dashed #000000;
   width: 10%;
+  padding-top: 10px;
 }
 
 .past {
-  background-color: #d3d3d3;
+  background-color: rgb(178, 178, 178, 0.7);
   color: white;
 }
 
 .present {
-  background-color: #ff6961;
+  background-color: rgb(255, 105, 97, 0.7);
   color: white;
 }
 
 .future {
-  background-color: #77dd77;
+  background-color: rgb(119, 221, 119, 0.7);
   color: white;
 }
 
