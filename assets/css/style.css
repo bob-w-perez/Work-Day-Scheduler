@@ -16,6 +16,34 @@ textarea {
   font-size: 25px;
 }
 
+.dropdown-menu {
+  width: 280px !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#set-workday li:last-child {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#set-form {
+  padding: 10px 30px;
+}
+
+#start-time {
+  text-align: right;
+}
+
+#end-time{
+  text-align: right;
+}
+
 .jumbotron {
   text-align: center;
   background-color: transparent;
@@ -38,6 +66,7 @@ textarea {
 #current-time {
   margin-top: 30px;
   font-size: 25px;
+  margin-bottom: 30px;
 }
 
 #content-box {
@@ -100,8 +129,8 @@ textarea {
 }
 
 
-.saveBtn i:hover {
-  font-size: 20px;
+.saveBtn:hover {
+  background-color: rgb(5, 203, 249, 0.8);
   transition: all 0.3s ease-in-out;
 }
 

@@ -4,11 +4,9 @@ var timeDisplay = $('#current-time');
 var contentBox = $('#content-box');
 
 
-
-
 function init() {
     addTime();
-    renderTimeSlots(5, 17);
+    renderTimeSlots(9, 17);
     colorTime();
     loadSavedData();
 }
@@ -16,6 +14,7 @@ function init() {
 
 function addTime() {
     dayDisplay.text(moment().format('dddd, MMMM Do, YYYY'));
+    timeDisplay.text(moment().format('h:mm:ss a'));
     setInterval(function() {
         timeDisplay.text(moment().format('h:mm:ss a'));
     }, 1000);
@@ -25,7 +24,7 @@ function addTime() {
 function renderTimeSlots(startTime, endTime) {
 
     for (var i = startTime; i <= endTime; i++ ){
-        var timeRow = $('<div>');
+        var timeRow = $('<li>');
         timeRow.addClass('row');
 
         var hourBox = $('<div>');
@@ -40,13 +39,13 @@ function renderTimeSlots(startTime, endTime) {
         timeRow.append(hourBox);
 
         var timeSlot = $('<textarea>');
-        timeSlot.addClass('time-block'); // add placeholder
+        timeSlot.addClass('time-block');
         timeSlot.attr('data-time', i);
         timeRow.append(timeSlot);
 
         var saveBtn = $('<div>');
         saveBtn.addClass('saveBtn');
-        saveBtn.attr('data-index', (i-startTime));
+        saveBtn.attr('data-index', (i));
         timeRow.append(saveBtn);
 
         contentBox.append(timeRow);
@@ -73,16 +72,36 @@ function colorTime() {
     }
 }
 
+// $('#content-box').sortable({
+//     start: function(e, ui) {
+//         // creates a temporary attribute on the element with the old index
+//         $(this).attr('data-previndex', ui.item.index());
+//     },
+//     update: function(e, ui) {
+//         // gets the new and old index then removes the temporary attribute
+//         var newIndex = ui.item.index();
+//         var oldIndex = $(this).attr('data-previndex');
+//         $(this).removeAttr('data-previndex');
+//         console.log(newIndex)
+//         console.log(oldIndex)
+//     }
+// });
 
 
 function saveEvent(element) {
 
     var index = element.dataset.index;
-    var targetBlock = $('.time-block')[index];
+    var blockList = $('.time-block');
     
-    var saveItem = {
-        [index]: $(targetBlock).val()
-    }
+    for (var i = 0; i < blockList.length; i++) {
+            if (blockList[i].dataset.time == index){
+                var saveItem = {
+                    [index]: $(blockList[i]).val()
+                };
+            }
+        }
+
+   
 
     var storedSchedule = JSON.parse(localStorage.getItem('schedule'));
 
@@ -98,16 +117,24 @@ function saveEvent(element) {
 }
 
 
-
 function loadSavedData() {
 
     var storedSchedule = JSON.parse(localStorage.getItem('schedule'));
+    var blockList = $('.time-block');
 
-    Object.entries(storedSchedule).forEach(element => {
-        var targetBlock = $('.time-block')[element[0]];
-        $(targetBlock).val(element[1]);
-    });
+    if (storedSchedule) {
+        Object.entries(storedSchedule).forEach(element => {
+            for (var i = 0; i < blockList.length; i++) {
+
+                if (element[0] == blockList[i].dataset.time) {
+                    $(blockList[i]).val(element[1]);
+                }
+            }
+        });
+    }
 }
+
+
 
 $('#content-box').on('click', function(event){
     var element = event.target;
@@ -115,6 +142,31 @@ $('#content-box').on('click', function(event){
     if (element.matches('.saveBtn')) {
         saveEvent(element);
     }
+});
+
+$('#set-workday').on('submit',function(event){
+    event.preventDefault();
+
+    if ($('#start-ap').is(':checked')) {
+        var startTime = (Number($('#start-time').val()) + 12);
+    } else {
+        var startTime = Number($('#start-time').val());
+    }
+/// condition for noon and midnight
+    if ($('#end-ap').is(':checked')) {
+        var endTime = (Number($('#end-time').val()) + 12);
+    } else {
+        var endTime = Number($('#end-time').val());
+    }
+    // conditional for start > end
+    console.log(startTime + ' ' + endTime);
+    // also try remove() or empty()
+    contentBox.empty();
+
+    renderTimeSlots(startTime, endTime);
+    colorTime();
+    loadSavedData();
+    document.getElementById('current-day').click();
 });
 
 init();
