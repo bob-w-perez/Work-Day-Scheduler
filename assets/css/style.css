@@ -31,10 +31,12 @@ textarea {
 
 #current-day {
   margin-top: 40px;
+  font-size: 30px;
 }
 
 #current-time {
   margin-top: 30px;
+  font-size: 25px;
 }
 
 #content-box {

@@ -10,6 +10,7 @@ function init() {
     addTime();
     renderTimeSlots(5, 17);
     colorTime();
+    loadSavedData();
 }
 
 
@@ -86,7 +87,7 @@ function saveEvent(element) {
     var storedSchedule = JSON.parse(localStorage.getItem('schedule'));
 
     if (storedSchedule !== null) {
-        storedSchedule = Object.assign(storedSchedule, saveItem)
+        storedSchedule = Object.assign(storedSchedule, saveItem);
     } else {
         storedSchedule = saveItem;
     }
@@ -100,7 +101,12 @@ function saveEvent(element) {
 
 function loadSavedData() {
 
+    var storedSchedule = JSON.parse(localStorage.getItem('schedule'));
 
+    Object.entries(storedSchedule).forEach(element => {
+        var targetBlock = $('.time-block')[element[0]];
+        $(targetBlock).val(element[1]);
+    });
 }
 
 $('#content-box').on('click', function(event){
