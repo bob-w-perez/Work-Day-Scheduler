@@ -6,6 +6,7 @@ body {
   background-size: cover;
  }
 
+
 textarea {
   background: transparent;
   border: none;
@@ -16,9 +17,11 @@ textarea {
   font-size: 25px;
 }
 
+
 .dropdown-menu {
   width: 280px !important;
 }
+
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -26,23 +29,46 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+
 #set-workday li:last-child {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
+
 #set-form {
   padding: 10px 30px;
 }
+
 
 #start-time {
   text-align: right;
 }
 
+
 #end-time{
   text-align: right;
 }
+
+
+.modal {
+  width: 81%;
+}
+
+
+.modal-title{
+  font-size: 1.6em;
+}
+
+
+.modal-content {
+  height: fit-content;
+  width: 170%;
+  font-size: 1.5em;
+  line-height: 1.4;
+}
+
 
 .error-msg {
   text-align: center;
@@ -50,6 +76,7 @@ input::-webkit-inner-spin-button {
   background-color: rgb(249, 231, 5, 0.4);
   align-self: center;
 }
+
 
 .jumbotron {
   text-align: center;
@@ -59,22 +86,26 @@ input::-webkit-inner-spin-button {
   border-bottom: 10px solid black;
 }
 
+
 .jumbotron p:nth-child(2) {
   border-bottom: 2px dotted black;
   padding-bottom: 10px;
   padding-top: 10px;
 }
 
+
 #current-day {
   margin-top: 40px;
   font-size: 30px;
 }
+
 
 #current-time {
   margin-top: 30px;
   font-size: 25px;
   margin-bottom: 30px;
 }
+
 
 #content-box {
   margin-bottom: 100px;
@@ -83,9 +114,11 @@ input::-webkit-inner-spin-button {
   flex-direction: column;
 }
 
+
 .description {
   white-space: pre-wrap;
 }
+
 
 .time-block {
   padding-top: 40px;
@@ -94,11 +127,13 @@ input::-webkit-inner-spin-button {
   width: 60%;
 }
 
+
 .row {
   white-space: pre-wrap;
   height: 110px;
   border-top: 1px solid white;
 }
+
 
 .hour {
   color: #000000;
@@ -108,20 +143,24 @@ input::-webkit-inner-spin-button {
   font-size: 20px;
 }
 
+
 .past {
   background-color: rgb(38, 22, 234, 0.5);
   color: black;
 }
+
 
 .present {
   background-color: rgb(86, 223, 34, 0.7);
   color: black;
 }
 
+
 .future {
   background-color: rgb(108, 232, 230, 0.5);
   color: black;
 }
+
 
 .saveBtn {
   border-left: 1px solid black;
@@ -144,12 +183,14 @@ input::-webkit-inner-spin-button {
 }
 
 
+/* Added media queries so elements render properly on all screen sizes */
+
 @media screen and (min-width: 700px) {
 
   .jumbotron p:nth-child(2) {
     margin-left: 10%;
     margin-right: 10%;
-    }
+  }
     
   .time-block {
     width: 70%;
@@ -169,9 +210,9 @@ input::-webkit-inner-spin-button {
   .jumbotron p:nth-child(2) {
     margin-left: 15%;
     margin-right: 15%;
-    }
+  }
 
-   .time-block {
+  .time-block {
     width: 80%;
   }  
 
@@ -184,13 +225,12 @@ input::-webkit-inner-spin-button {
   }  
 }
 
-
 @media screen and (min-width: 1050px) {
 
   .jumbotron p:nth-child(2) {
     margin-left: 20%;
     margin-right: 20%;
-    }
+  }
 }
 
 @media screen and (min-width: 1250px) {
@@ -198,7 +238,7 @@ input::-webkit-inner-spin-button {
   .jumbotron p:nth-child(2) {
     margin-left: 25%;
     margin-right: 25%;
-    }
+  }
 }
 
 @media screen and (min-width: 1450px) {
@@ -206,5 +246,5 @@ input::-webkit-inner-spin-button {
   .jumbotron p:nth-child(2) {
     margin-left: 30%;
     margin-right: 30%;
-    }
+  }
 }

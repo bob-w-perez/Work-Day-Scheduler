@@ -1,8 +1,10 @@
+// WORK DAY SCHEDULER by Robert Perez //
 
 var dayDisplay = $('#current-day');
 var timeDisplay = $('#current-time');
 var contentBox = $('#content-box');
 
+// default time for 9:00am to 5:00pm //
 var startTime = 9;
 var endTime = 17;
 
@@ -11,10 +13,11 @@ function init() {
     renderTimeSlots(startTime, endTime);
     colorTime();
     loadSavedData();
+    var myModal = new bootstrap.Modal(document.getElementById('instructions'), {})
+    myModal.toggle()
 }
 init();
 
-// %%%%%%  ADD INSTRUCTION POPUP %%%%%% //
 
 function addTime() {
     dayDisplay.text(moment().format('dddd, MMMM Do, YYYY'));
@@ -67,7 +70,9 @@ function renderTimeSlots(startTime, endTime) {
     }
 }
 
-
+//  time from moment.js in 24-hr format and compared in the switch block  //
+//  to each text-area's unique data attribute. Lines 92 & 93 added as a    //
+//  workaround so midnight is colored correctly whether at top or bottom  // 
 function colorTime() {
     var textBlocks = $(document).find('textarea');
     var rightNow = Number(moment().format('k'));
@@ -92,7 +97,6 @@ function colorTime() {
 
 
 function saveEvent(element) {
-
     var index = element.dataset.index;
     var blockList = $('.time-block');
     
@@ -123,7 +127,6 @@ function loadSavedData() {
     if (storedSchedule) {
         Object.entries(storedSchedule).forEach(element => {
             for (var i = 0; i < blockList.length; i++) {
-
                 if (element[0] == blockList[i].dataset.time) {
                     $(blockList[i]).val(element[1]);
                 }
@@ -132,12 +135,19 @@ function loadSavedData() {
     }
 }
 
-
+//  using jQueryUI to make the list of time-slots sortable, however, the default    //
+//  functionality shifts all the list items between the old and new locations       //
+//  after an element is moved. The following ~60 lines take care of reorganizing    //
+//  the shifted elements to give the overall effect of the moved element switching  //
+//  places with the target element, while preserving the correct order of time      //
+//  among the '.hour' elements.
 $('#content-box').sortable({
     start: function(event, ui) {
-        // creates a temporary attribute on the element with the old index
-        $(event.target).attr('data-previndex', ui.item.index());/////
+        // creates a temporary attribute on the element with the old index //
+        $(event.target).attr('data-previndex', ui.item.index());
 
+        // creates a list of all the text-area contents before any elements have moved,  //
+        // intentionally scoped 'startOrder' globally to access it in the function below //
         startOrder = [];
         var startList = $('.time-block');
         startList.each(function() {
@@ -145,16 +155,15 @@ $('#content-box').sortable({
         });
     },
     update: function(event, ui) {
-        // gets the new and old index then removes the temporary attribute
-
+        // gets the new and old index then removes the temporary attribute //
         var newIndex = ui.item.index();
         var oldIndex = $(event.target).attr('data-previndex');
         $(event.target).removeAttr('data-previndex');
         
+        // resets all the time indicators to their correct order
         var hourList = $('.hour');
         var counter = startTime;
         hourList.each(function() {
-
             if (counter == 0){
                 $(this).text("12:00 AM")
             } else if (counter < 12) {
@@ -169,14 +178,19 @@ $('#content-box').sortable({
             counter++;
         });
 
+        // reassigns the values of the two swapped elements, and by doing   //
+        // this in the 'startOrder' array declared above the order original //
+        // order of the list is preserved except for the targeted elements  //
         var firstValue = startOrder[oldIndex];
         var secondValue = startOrder[newIndex];
         startOrder[newIndex] = firstValue;
         startOrder[oldIndex] = secondValue;
 
+
+        // reassigns values to text-areas and removes their classes (which   //
+        // determine their time-based color coding), then adds updated class //
         var counter = startTime;
         var endList = $('.time-block');
-
         for (var i = 0; i < endList.length; i++) {
             $(endList[i]).val(startOrder[i]);
             endList[i].dataset.time = counter;
@@ -186,6 +200,9 @@ $('#content-box').sortable({
         }
         colorTime();
 
+        // reassigns indices to the save buttons so they correspond with the //
+        // correct text-areas, and runs saveEvent() for each to record the  //
+        // results of the swapped elements  //
         var counter = startTime;
         var saveList = $('.saveBtn');
         saveList.each(function() {
@@ -205,6 +222,9 @@ $('#content-box').on('click', function(event){
     }
 });
 
+
+// these conditionals are used to essentially convert the 12-hour AM/PM format //
+// of the 'Set Workday Hours' controls into a 24-hour format for rendering   //
 $('#set-workday').on('submit',function(event){
     event.preventDefault();
 
