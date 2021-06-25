@@ -12,7 +12,9 @@ function init() {
     colorTime();
     loadSavedData();
 }
+init();
 
+// %%%%%%  ADD INSTRUCTION POPUP %%%%%% //
 
 function addTime() {
     dayDisplay.text(moment().format('dddd, MMMM Do, YYYY'));
@@ -27,7 +29,7 @@ function renderTimeSlots(startTime, endTime) {
     if (startTime > endTime) {
         var errorMsg = $('<h3>');
         errorMsg.addClass('error-msg');
-        errorMsg.text("Whoops! Make sure your 'End Time' is later than your 'Start Time'...");
+        errorMsg.text("Whoops! Make sure your 'END TIME' is LATER THAN your 'START TIME'...");
         contentBox.append(errorMsg);
         return;
     }
@@ -233,5 +235,3 @@ $('#set-workday').on('submit',function(event){
     loadSavedData();
     document.getElementById('current-day').click();
 });
-
-init();
