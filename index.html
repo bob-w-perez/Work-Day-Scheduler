@@ -26,7 +26,7 @@
 
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Work Day Scheduler</title>
-    <link rel="icon" href="./assets/images/favicon.png"/>
+    <link rel="icon" href="./assets/images/favicon2.jpg"/>
   </head>
 
   <body>
@@ -45,13 +45,13 @@
           <form id="set-workday">
             <li class="input-group mb-3">
               <span class="input-group-text">Day-Start</span>
-              <input id="start-time" type="number" value=9 class="form-control" required>
+              <input id="start-time" type="number" value=9 min="1" max="12" class="form-control" onClick="this.select()" required>
               <span class="input-group-text">:00</span>
               <input id="start-ap" type="checkbox" data-toggle="toggle" data-on="PM" data-off="AM">
             </li>
             <li class="input-group mb-3">
               <span class="input-group-text">Day-End</span>
-              <input id="end-time" type="number" value=5 class="form-control" required>
+              <input id="end-time" type="number" value=5 min="1" max="12" class="form-control" onClick="this.select()" required>
               <span class="input-group-text">:00</span>
               <input id="end-ap" type="checkbox" data-toggle="toggle" checked='true' data-on="PM" data-off="AM">
             </li>

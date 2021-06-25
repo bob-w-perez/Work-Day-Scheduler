@@ -46,6 +46,8 @@ input::-webkit-inner-spin-button {
 
 .error-msg {
   text-align: center;
+  width: fit-content;
+  background-color: rgb(249, 231, 5, 0.4);
 }
 
 .jumbotron {

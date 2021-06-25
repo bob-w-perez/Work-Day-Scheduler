@@ -3,10 +3,12 @@ var dayDisplay = $('#current-day');
 var timeDisplay = $('#current-time');
 var contentBox = $('#content-box');
 
+var startTime = 9;
+var endTime = 17;
 
 function init() {
     addTime();
-    renderTimeSlots(9, 17);
+    renderTimeSlots(startTime, endTime);
     colorTime();
     loadSavedData();
 }
@@ -18,8 +20,8 @@ function addTime() {
     setInterval(function() {
         timeDisplay.text(moment().format('h:mm:ss a'));
     }, 1000);
-
 }
+
 
 function renderTimeSlots(startTime, endTime) {
     if (startTime > endTime) {
@@ -36,12 +38,16 @@ function renderTimeSlots(startTime, endTime) {
 
         var hourBox = $('<div>');
         hourBox.addClass('hour');
-        if (i < 12) {
+        if (i == 0){
+            hourBox.text("12:00 AM");
+        } else if (i < 12) {
             hourBox.text(i + ":00 AM");
+        } else if (i == 12) {
+            hourBox.text(i + ':00 PM');  
+        } else if (i == 24) {
+            hourBox.text('12:00 AM');  
         } else if (i > 12) {
             hourBox.text((i - 12) + ':00 PM');
-        } else {
-            hourBox.text(i + ':00 PM');
         }
         timeRow.append(hourBox);
 
@@ -79,21 +85,6 @@ function colorTime() {
     }
 }
 
-// $('#content-box').sortable({
-//     start: function(e, ui) {
-//         // creates a temporary attribute on the element with the old index
-//         $(this).attr('data-previndex', ui.item.index());
-//     },
-//     update: function(e, ui) {
-//         // gets the new and old index then removes the temporary attribute
-//         var newIndex = ui.item.index();
-//         var oldIndex = $(this).attr('data-previndex');
-//         $(this).removeAttr('data-previndex');
-//         console.log(newIndex)
-//         console.log(oldIndex)
-//     }
-// });
-
 
 function saveEvent(element) {
 
@@ -108,8 +99,6 @@ function saveEvent(element) {
             }
         }
 
-   
-
     var storedSchedule = JSON.parse(localStorage.getItem('schedule'));
 
     if (storedSchedule !== null) {
@@ -117,10 +106,7 @@ function saveEvent(element) {
     } else {
         storedSchedule = saveItem;
     }
-    
-
     localStorage.setItem('schedule', JSON.stringify(storedSchedule));
-
 }
 
 
@@ -141,6 +127,53 @@ function loadSavedData() {
     }
 }
 
+
+$('#content-box').sortable({
+    start: function(event, ui) {
+        // creates a temporary attribute on the element with the old index
+        $(event.target).attr('data-previndex', ui.item.index());/////
+
+        startOrder = [];
+        var startList = $('.time-block');
+        startList.each(function() {
+            startOrder.push($(this).val());
+        });
+    },
+    update: function(event, ui) {
+        // gets the new and old index then removes the temporary attribute
+
+        var newIndex = ui.item.index();
+        var oldIndex = $(event.target).attr('data-previndex');
+        $(event.target).removeAttr('data-previndex');
+        
+        var hourList = $('.hour');
+        var counter = startTime;
+        hourList.each(function() {
+            if (counter == 0){
+                $(this).text("12:00 AM")
+            } else if (counter < 12) {
+                $(this).text(counter + ":00 AM");
+            } else if (counter == 12) {
+                $(this).text(counter + ':00 PM');
+            } else if (counter == 24) {
+                $(this).text('12:00 AM');
+            } else if (counter > 12) {
+                $(this).text((counter - 12) + ':00 PM');
+            }
+            counter++;
+        });
+
+        var firstValue = startOrder[oldIndex];
+        var secondValue = startOrder[newIndex];
+        startOrder[newIndex] = firstValue;
+        startOrder[oldIndex] = secondValue;
+
+        var endList = $('.time-block');
+        for (var i = 0; i < endList.length; i++) {
+            $(endList[i]).val(startOrder[i]);
+        }
+    }
+});
 
 
 $('#content-box').on('click', function(event){
