@@ -71,7 +71,7 @@ function colorTime() {
     var rightNow = Number(moment().format('k'));
 
     for (var i = 0; i < textBlocks.length; i++){
-    
+
         switch(true){
             case (textBlocks[i].dataset.time < rightNow):
                 $(textBlocks[i]).addClass('past');
@@ -82,6 +82,9 @@ function colorTime() {
             case (textBlocks[i].dataset.time > rightNow):
                 $(textBlocks[i]).addClass('future');
         }
+    }
+    if (rightNow == 24 && textBlocks[0].dataset.time == 0) {
+        $(textBlocks[0]).addClass('present');
     }
 }
 
@@ -149,6 +152,7 @@ $('#content-box').sortable({
         var hourList = $('.hour');
         var counter = startTime;
         hourList.each(function() {
+
             if (counter == 0){
                 $(this).text("12:00 AM")
             } else if (counter < 12) {
@@ -168,10 +172,25 @@ $('#content-box').sortable({
         startOrder[newIndex] = firstValue;
         startOrder[oldIndex] = secondValue;
 
+        var counter = startTime;
         var endList = $('.time-block');
+
         for (var i = 0; i < endList.length; i++) {
             $(endList[i]).val(startOrder[i]);
+            endList[i].dataset.time = counter;
+            $(endList[i]).removeClass();
+            $(endList[i]).addClass('time-block');
+            counter++;
         }
+        colorTime();
+
+        var counter = startTime;
+        var saveList = $('.saveBtn');
+        saveList.each(function() {
+            this.dataset.index = counter;
+            saveEvent(this);
+            counter++;
+        });
     }
 });
 
@@ -188,23 +207,23 @@ $('#set-workday').on('submit',function(event){
     event.preventDefault();
 
     if ($('#start-ap').is(':checked') && (Number($('#start-time').val()) == 12)) {
-        var startTime = 12;
+        startTime = 12;
     } else if  ($('#start-ap').is(':checked')) {
-        var startTime = (Number($('#start-time').val()) + 12);
+        startTime = (Number($('#start-time').val()) + 12);
     } else if (!$('#start-ap').is(':checked') && (Number($('#start-time').val()) == 12)) {
-        var startTime = 0;  
+        startTime = 0;  
     } else {
-        var startTime = Number($('#start-time').val());
+        startTime = Number($('#start-time').val());
     }
 
     if ($('#end-ap').is(':checked') && (Number($('#end-time').val()) == 12)) {
-        var endTime = 12;
+        endTime = 12;
     } else if  ($('#end-ap').is(':checked')) {
-        var endTime = (Number($('#end-time').val()) + 12);
+        endTime = (Number($('#end-time').val()) + 12);
     } else if (!$('#end-ap').is(':checked') && (Number($('#end-time').val()) == 12)) {
-        var endTime = 24;  
+        endTime = 24;  
     } else {
-        var endTime = Number($('#end-time').val());
+        endTime = Number($('#end-time').val());
     }
  
     contentBox.empty();
