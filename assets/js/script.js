@@ -13,8 +13,8 @@ function init() {
     renderTimeSlots(startTime, endTime);
     colorTime();
     loadSavedData();
-    var myModal = new bootstrap.Modal(document.getElementById('instructions'), {})
-    myModal.toggle()
+    var myModal = new bootstrap.Modal($('#instructions'));
+    myModal.toggle();
 }
 init();
 
