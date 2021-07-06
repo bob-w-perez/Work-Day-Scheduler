@@ -31,6 +31,7 @@ The code and all relevant files can be found at [https://github.com/bob-w-perez/
 ## Selected Code
 
 The most technically difficult part of this project was getting the drag-and-drop feature to function correctly. It is based off of JQueryUI's .sortable interaction. However, when making something sortable, all list items shift in position when one is move which would not be appropriate for a schedule where the other events need to stay in their designated positions. Additionally, the data attributes of the moved elements needed to dynamically update in order for the color coding function to work properly.
+
 ![screenshot-demo](./assets/images/code-snippet-2.png "Functional Demo")
 ![screenshot-demo](./assets/images/code-snippet-3.png "Functional Demo")
 
