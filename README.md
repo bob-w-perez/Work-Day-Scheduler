@@ -8,6 +8,8 @@
 - Additionally, I added a heavily modified version of jQueryUi's .sortable interaction to allow for drag-and-drop rearranging of the schedule without having to re-type events. 
 
 - this project met all required functional and design criteria, and was then enhanced through the addition of the user-selectable timeframes (made possible by dynamically generating all elements in Javascript) as well as the drag-and-drop functionality (which is explained n greater detail below)
+
+- HTML, CSS, JavaScript, moment.js, jQuery, jQuery UI, bootstrap-toggle
 ## Installation
 
 No installation required.
@@ -39,6 +41,10 @@ The methods used in this section can generalize to any situation in which one wa
 
 ## Contributing
 Solo project for GATech Coding Bootcamp
+by Rob Perez
+- [Portfolio Page]https://bob-w-perez.github.io/Portfolio-Page/)
+- bob.w.perez@gmail.com
+- 404.317.5336
 
 ## License
 MIT License
