@@ -1,4 +1,4 @@
-# Workday-Scheduler-HW5
+# Workday-Scheduler
 
 
 - This project was to make a scheduling app that displays the hours of the day as editable time-slots where events can be added then saved to local storage. The project asked for a 9am to 5pm schedule.
