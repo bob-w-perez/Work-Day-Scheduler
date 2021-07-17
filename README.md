@@ -42,8 +42,8 @@ The methods used in this section can generalize to any situation in which one wa
 ## Contributing
 Solo project for GATech Coding Bootcamp
 by Rob Perez
-- [Portfolio Page]https://bob-w-perez.github.io/Portfolio-Page/)
-- bob.w.perez@gmail.com
+- [Portfolio Page](https://www.robperez.net)
+- rob@robperez.net
 - 404.317.5336
 
 ## License
